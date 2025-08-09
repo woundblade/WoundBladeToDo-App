@@ -1,3 +1,11 @@
+import readline from 'readline';
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+
 enum TaskStatus {
   Pending = 'Pending',
   Done = 'Done',
@@ -42,10 +50,47 @@ function deleteTask(id: number): void {
     }
 }
 
-addTask('Выспаться');
-addTask('Сделать проект на TypeScript с использованием Git.');
-console.log(getListTasks());
-markTaskDone(1);
-console.log(getListTasks());
-deleteTask(1);
-console.log(getListTasks());
+// addTask('Выспаться');
+// addTask('Сделать проект на TypeScript с использованием Git.');
+// console.log(getListTasks());
+// markTaskDone(1);
+// console.log(getListTasks());
+// deleteTask(1);
+// console.log(getListTasks());
+
+let main = () => {
+    rl.question('\nВведите команду: ', (input: string) => {
+        let cmd: string = '';
+        let fullArgs: string = '';
+
+
+        const [cmdRaw, ...args] = input.trim().split(' ');
+        cmd = cmdRaw ?? '';
+
+        fullArgs = args.join(' ');
+
+        if (fullArgs) {
+            let num: number = Number(fullArgs);
+            switch(cmd) {
+                case 'add':
+                    addTask(fullArgs);
+                    break;
+                case 'done':
+                    markTaskDone(num);
+                    break;
+                case 'del':
+                    deleteTask(num);
+                    break;
+            }
+        } else if (cmd == 'list') {
+            getListTasks();
+        } else if (cmd == 'exit') {
+            rl.close();
+            return;
+        }
+
+        main(); 
+    });
+}
+
+main();
