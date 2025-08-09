@@ -5,7 +5,6 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-
 enum TaskStatus {
   Pending = 'Pending',
   Done = 'Done',
@@ -49,14 +48,6 @@ function deleteTask(id: number): void {
         delete tasks[id];
     }
 }
-
-// addTask('Выспаться');
-// addTask('Сделать проект на TypeScript с использованием Git.');
-// console.log(getListTasks());
-// markTaskDone(1);
-// console.log(getListTasks());
-// deleteTask(1);
-// console.log(getListTasks());
 
 let main = () => {
     rl.question('\nВведите команду: ', (input: string) => {
